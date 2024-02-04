@@ -1,0 +1,22 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /api-business-price
+spring:
+  datasource:
+    driverClassName: org.h2.Driver
+    url: jdbc:h2:mem:prices
+    username: price
+    password:
+    jackson:
+      serialization:
+        write_dates_as_timestamps: false
+  h2:
+    console:
+      enabled: true
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    open-in-view: false
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
