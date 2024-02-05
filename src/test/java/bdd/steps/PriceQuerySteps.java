@@ -1,6 +1,6 @@
-package com.business.price.steps;
+package bdd.steps;
 
-import com.business.price.TestConfig;
+import bdd.TestConfig;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.spring.CucumberContextConfiguration;
