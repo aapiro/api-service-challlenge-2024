@@ -1,0 +1,50 @@
+{
+	"info": {
+		"_postman_id": "ec408c39-7419-478a-9548-a667b242162b",
+		"name": "api challenge prices",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "1975850"
+	},
+	"item": [
+		{
+			"name": "Get Price",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api-business-price/api/v1/brand-id/:brandID/product-id/:productId?applicationDate=2020-06-16 21:00:00",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api-business-price",
+						"api",
+						"v1",
+						"brand-id",
+						":brandID",
+						"product-id",
+						":productId"
+					],
+					"query": [
+						{
+							"key": "applicationDate",
+							"value": "2020-06-16 21:00:00"
+						}
+					],
+					"variable": [
+						{
+							"key": "brandID",
+							"value": "1"
+						},
+						{
+							"key": "productId",
+							"value": "35455"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
