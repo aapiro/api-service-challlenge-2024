@@ -1,7 +1,6 @@
 package com.business.price.domain.repository;
 
 import com.business.price.domain.Price;
-import com.business.price.infraestructure.repository.PriceEntity;
 
 import java.time.LocalDateTime;
 import java.util.List;
