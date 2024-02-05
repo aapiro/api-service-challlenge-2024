@@ -1,4 +1,4 @@
-package com.business.price.adapters.db;
+package com.business.price.infraestructure.repository;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

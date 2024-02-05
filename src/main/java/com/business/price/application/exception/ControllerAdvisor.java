@@ -1,10 +1,11 @@
-package com.business.price.exception;
+package com.business.price.application.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import java.time.LocalDateTime;
@@ -24,5 +25,10 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
         body.put("message", "No Prices found");
 
         return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
+    }
+    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+    public ResponseEntity<String> handleParameterTypeMismatch(MethodArgumentTypeMismatchException ex) {
+        String errorMessage = "Incorrect Parameter: " + ex.getName();
+        return ResponseEntity.badRequest().body(errorMessage);
     }
 }

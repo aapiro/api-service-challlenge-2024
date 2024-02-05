@@ -1,6 +1,7 @@
-package com.business.price.adapters.api;
+package com.business.price.application.rest;
 
-import com.business.price.domain.ports.PriceService;
+import com.business.price.application.response.PriceResponse;
+import com.business.price.domain.service.PriceService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -23,8 +24,8 @@ public class PriceEndpoint {
     @Operation(summary = "Get price")
     @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "Success")})
     @GetMapping(value = "/brand-id/{brandID}/product-id/{productId}", produces = DEFAULT_MEDIA_TYPE)
-    ResponseEntity<PriceResponse> getPrice(@PathVariable("brandID") final Integer brandId,
-                                           @PathVariable("productId") final Integer productId,
+    ResponseEntity<PriceResponse> getPrice(@PathVariable("brandID") final int brandId,
+                                           @PathVariable("productId") final int productId,
                                            @RequestParam("applicationDate")
                                            @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
                                            final LocalDateTime applicationDate) {

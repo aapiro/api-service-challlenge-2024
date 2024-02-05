@@ -1,4 +1,4 @@
-package com.business.price.adapters.api;
+package com.business.price.application.response;
 
 import lombok.Builder;
 import lombok.Data;

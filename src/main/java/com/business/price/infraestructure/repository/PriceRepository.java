@@ -1,6 +1,5 @@
-package com.business.price.domain.ports;
+package com.business.price.infraestructure.repository;
 
-import com.business.price.adapters.db.PriceEntity;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
