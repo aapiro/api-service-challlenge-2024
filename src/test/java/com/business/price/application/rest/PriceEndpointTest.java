@@ -1,4 +1,4 @@
-package com.business.price.adapters.api;
+package com.business.price.application.rest;
 
 import com.business.price.application.rest.PriceEndpoint;
 import com.business.price.domain.service.PriceService;

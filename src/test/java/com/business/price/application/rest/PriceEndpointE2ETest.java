@@ -1,4 +1,4 @@
-package e2e.api;
+package com.business.price.application.rest;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

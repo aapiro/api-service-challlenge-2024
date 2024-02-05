@@ -1,9 +1,8 @@
-package com.business.price.domain.ports;
+package com.business.price.domain.service;
 
 import com.business.price.application.response.PriceResponse;
-import com.business.price.infraestructure.repository.PriceRepository;
-import com.business.price.infraestructure.repository.PriceEntity;
-import com.business.price.domain.service.DomainPriceService;
+import com.business.price.domain.Price;
+import com.business.price.domain.repository.PriceRepository;
 import com.business.price.application.exception.NoDataFoundException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -24,7 +23,7 @@ public class DomainPriceServiceTest {
     private DomainPriceService priceService;
 
     @Mock
-    private PriceRepository priceRepository;
+    private PriceRepository sqlPriceRepository;
 
     @Test
     public void testFindPriceFromDateAndProductAndBrand() {
@@ -33,13 +32,13 @@ public class DomainPriceServiceTest {
         int productId = 2;
         LocalDateTime applicationDate = LocalDateTime.of(2022, 3, 15, 10, 30);
 
-        PriceEntity priceEntity = new PriceEntity();
-        priceEntity.setPrice(100.0);
-        priceEntity.setBrandId(brandId);
-        priceEntity.setProductId(productId);
-        priceEntity.setStartDate(LocalDateTime.of(2022, 3, 15, 10, 30));
-        priceEntity.setEndDate(LocalDateTime.of(2022, 3, 15, 10, 30));
-        priceEntity.setPriceList(1);
+        Price price = new Price();
+        price.setPrice(100.0);
+        price.setBrandId(brandId);
+        price.setProductId(productId);
+        price.setStartDate(LocalDateTime.of(2022, 3, 15, 10, 30));
+        price.setEndDate(LocalDateTime.of(2022, 3, 15, 10, 30));
+        price.setPriceList(1);
 
         PriceResponse expectedResponse = PriceResponse.builder()
                 .price(100.0)
@@ -51,8 +50,8 @@ public class DomainPriceServiceTest {
                 .build();
 
         // Mocking PriceRepository
-        when(priceRepository.findByProductAndBrandDate(brandId, productId, applicationDate))
-                .thenReturn(Collections.singletonList(priceEntity));
+        when(sqlPriceRepository.findByProductAndBrandDate(brandId, productId, applicationDate))
+                .thenReturn(Collections.singletonList(price));
 
         // Act
         PriceResponse result = priceService.findPriceFromDateAndProductAndBrand(brandId, productId, applicationDate);
@@ -70,7 +69,7 @@ public class DomainPriceServiceTest {
         LocalDateTime applicationDate = LocalDateTime.of(2022, 3, 15, 10, 30);
 
         // Mocking PriceRepository to return an empty list
-        when(priceRepository.findByProductAndBrandDate(brandId, productId, applicationDate))
+        when(sqlPriceRepository.findByProductAndBrandDate(brandId, productId, applicationDate))
                 .thenReturn(Collections.emptyList());
 
         // Act and Assert

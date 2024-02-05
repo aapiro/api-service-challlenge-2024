@@ -1,5 +1,6 @@
 package com.business.price.infraestructure.repository;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -33,4 +34,6 @@ public class PriceEntity {
     @Column(name = "PRICE", nullable = false)
     private Double price;
     @Column(name = "CURR", nullable = false)
-    private String currency;}
+    private String currency;
+
+  }
