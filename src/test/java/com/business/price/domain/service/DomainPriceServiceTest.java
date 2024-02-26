@@ -1,5 +1,6 @@
 package com.business.price.domain.service;
 
+import com.business.price.application.exception.DatabaseConnectionException;
 import com.business.price.application.response.PriceResponse;
 import com.business.price.domain.Price;
 import com.business.price.domain.repository.PriceRepository;
@@ -26,7 +27,7 @@ public class DomainPriceServiceTest {
     private PriceRepository sqlPriceRepository;
 
     @Test
-    public void testFindPriceFromDateAndProductAndBrand() {
+    public void testFindPriceFromDateAndProductAndBrand() throws DatabaseConnectionException {
 
         int brandId = 1;
         int productId = 2;
@@ -62,7 +63,7 @@ public class DomainPriceServiceTest {
     }
 
     @Test
-    public void testFindPriceFromDateAndProductAndBrand_NoDataFoundException() {
+    public void testFindPriceFromDateAndProductAndBrand_NoDataFoundException() throws DatabaseConnectionException {
         // Arrange
         int brandId = 1;
         int productId = 2;

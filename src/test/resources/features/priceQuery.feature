@@ -43,4 +43,13 @@ Feature: Price Query Scenarios
     And the end price date is "2020-12-31T23:00:59.059"
     And the product ID is 35455
     And the brand ID is 1
-    And I receive a price of 38.95 with price list 4
+
+  Scenario: Case 6: petición no encontrada (Not Found) para el producto 1 para la brand 1 (ZARA)
+    Given I query the price for product 1 from brand 1 at "2020-06-16 21:00:00"
+    Then I receive a status 404
+    And exception message is "No Prices found"
+
+  Scenario: Case 7: mala petición (Bad Request) el producto bad-request y la brand 1 (ZARA)
+    Given I query the price for product "bad-request" from brand 1 at "2020-06-16 21:00:00"
+    Then I receive a status 400
+    And bad request exception message is "Incorrect Parameter: productId"

@@ -1,5 +1,6 @@
 package com.business.price.application.rest;
 
+import com.business.price.application.exception.DatabaseConnectionException;
 import com.business.price.application.response.PriceResponse;
 import com.business.price.domain.service.PriceService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -28,7 +29,7 @@ public class PriceEndpoint {
                                            @PathVariable("productId") final int productId,
                                            @RequestParam("applicationDate")
                                            @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-                                           final LocalDateTime applicationDate) {
+                                           final LocalDateTime applicationDate) throws DatabaseConnectionException {
         return ResponseEntity.ok(priceService.findPriceFromDateAndProductAndBrand(brandId, productId, applicationDate));
     }
 }

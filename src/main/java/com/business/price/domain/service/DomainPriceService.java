@@ -1,6 +1,7 @@
 package com.business.price.domain.service;
 
 import com.business.price.adapters.PriceInboundAdapter;
+import com.business.price.application.exception.DatabaseConnectionException;
 import com.business.price.application.response.PriceResponse;
 import com.business.price.domain.Price;
 import com.business.price.domain.repository.PriceRepository;
@@ -19,7 +20,7 @@ public class DomainPriceService implements PriceService {
 
     @Override
     public PriceResponse findPriceFromDateAndProductAndBrand(int brandId, int productId,
-                                                             LocalDateTime applicationDate) {
+                                                             LocalDateTime applicationDate) throws DatabaseConnectionException {
         return priceRepository.findByProductAndBrandDate(brandId, productId, applicationDate)
                 .stream()
                 .max(Comparator.comparing(Price::getPriority))

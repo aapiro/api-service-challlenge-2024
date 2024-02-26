@@ -31,4 +31,8 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
         String errorMessage = "Incorrect Parameter: " + ex.getName();
         return ResponseEntity.badRequest().body(errorMessage);
     }
+    @ExceptionHandler(DatabaseConnectionException.class)
+    public ResponseEntity<Object> handleCustomDatabaseConnectionException(DatabaseConnectionException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.SERVICE_UNAVAILABLE);
+    }
 }
