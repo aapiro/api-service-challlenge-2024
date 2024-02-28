@@ -1,10 +1,12 @@
-package com.business.price.domain.service;
+package com.business.price.application.servicio;
 
-import com.business.price.application.exception.DatabaseConnectionException;
-import com.business.price.application.response.PriceResponse;
-import com.business.price.domain.Price;
-import com.business.price.domain.repository.PriceRepository;
-import com.business.price.application.exception.NoDataFoundException;
+import com.business.price.application.dto.PriceDTO;
+import com.business.price.common.exception.DatabaseConnectionException;
+import com.business.price.common.exception.NoDataFoundException;
+import com.business.price.domain.model.Price;
+import com.business.price.domain.port.service.PriceService;
+import com.business.price.domain.service.PriceServiceImpl;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -12,19 +14,23 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDateTime;
-import java.util.Collections;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class DomainPriceServiceTest {
+class PriceApplicationServiceTest {
 
     @InjectMocks
-    private DomainPriceService priceService;
+    private PriceApplicationService priceApplicationService;
 
     @Mock
-    private PriceRepository sqlPriceRepository;
+    private PriceService priceService;
+
+    @BeforeEach
+    void setUp() {
+    }
 
     @Test
     public void testFindPriceFromDateAndProductAndBrand() throws DatabaseConnectionException {
@@ -41,7 +47,7 @@ public class DomainPriceServiceTest {
         price.setEndDate(LocalDateTime.of(2022, 3, 15, 10, 30));
         price.setPriceList(1);
 
-        PriceResponse expectedResponse = PriceResponse.builder()
+        PriceDTO expectedResponse = PriceDTO.builder()
                 .price(100.0)
                 .brandId(brandId)
                 .productId(productId)
@@ -51,17 +57,16 @@ public class DomainPriceServiceTest {
                 .build();
 
         // Mocking PriceRepository
-        when(sqlPriceRepository.findByProductAndBrandDate(brandId, productId, applicationDate))
-                .thenReturn(Collections.singletonList(price));
+        when(priceService.findPriceFromDateAndProductAndBrand(brandId, productId, applicationDate))
+                .thenReturn(Optional.of(price));
 
         // Act
-        PriceResponse result = priceService.findPriceFromDateAndProductAndBrand(brandId, productId, applicationDate);
+        PriceDTO result = priceApplicationService.findByProductAndBrandDate(brandId, productId, applicationDate);
 
         // Assert
         assertNotNull(result);
         assertEquals(expectedResponse, result);
     }
-
     @Test
     public void testFindPriceFromDateAndProductAndBrand_NoDataFoundException() throws DatabaseConnectionException {
         // Arrange
@@ -70,11 +75,11 @@ public class DomainPriceServiceTest {
         LocalDateTime applicationDate = LocalDateTime.of(2022, 3, 15, 10, 30);
 
         // Mocking PriceRepository to return an empty list
-        when(sqlPriceRepository.findByProductAndBrandDate(brandId, productId, applicationDate))
-                .thenReturn(Collections.emptyList());
+        when(priceService.findPriceFromDateAndProductAndBrand(brandId, productId, applicationDate))
+                .thenReturn(Optional.empty());
 
         // Act and Assert
         assertThrows(NoDataFoundException.class,
-                () -> priceService.findPriceFromDateAndProductAndBrand(brandId, productId, applicationDate));
+                () -> priceApplicationService.findByProductAndBrandDate(brandId, productId, applicationDate));
     }
 }

@@ -1,10 +1,21 @@
-package com.business.price.adapters;
+package com.business.price.application.mapper;
 
-import com.business.price.domain.Price;
+import com.business.price.application.dto.PriceDTO;
+import com.business.price.domain.model.Price;
 import com.business.price.infraestructure.repository.PriceEntity;
 
-public class PriceOutboundAdapter {
-
+public class PriceMapper {
+    
+    public static PriceDTO toDto(Price price) {
+        return PriceDTO.builder()
+                .price(price.getPrice())
+                .brandId(price.getBrandId())
+                .productId(price.getProductId())
+                .startPriceDate(price.getStartDate())
+                .endPriceDate(price.getEndDate())
+                .priceList(price.getPriceList())
+                .build();
+    }
     public static Price toDomain(PriceEntity priceEntity) {
         Price price = new Price();
         price.setId(priceEntity.getId());
@@ -19,7 +30,6 @@ public class PriceOutboundAdapter {
 
         return price;
     }
-
-    private PriceOutboundAdapter() {
+    private PriceMapper() {
     }
 }

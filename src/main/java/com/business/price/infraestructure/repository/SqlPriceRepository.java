@@ -11,6 +11,6 @@ import java.util.List;
 @Repository
 public interface SqlPriceRepository extends CrudRepository<PriceEntity, Integer> {
 
-    @Query(value = "select p from PriceEntity p where p.brandId = :brandId and p.productId = :productId and p.startDate <= :date and p.endDate > :date")
+    @Query(value = "select p from PriceEntity p where p.brandId = :brandId and p.productId = :productId and p.startDate <= :date and p.endDate > :date ORDER BY p.priority DESC")
     List<PriceEntity> findByProductAndBrandDate(Integer brandId, Integer productId, LocalDateTime date, Pageable pageable);
 }

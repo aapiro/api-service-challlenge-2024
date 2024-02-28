@@ -1,7 +1,8 @@
-package com.business.price.application.rest;
+package com.business.price.infraestructure.adapter.controller;
 
-import com.business.price.application.exception.ControllerAdvisor;
-import com.business.price.domain.service.PriceService;
+
+import com.business.price.common.exception.GlobalExceptionHandler;
+import com.business.price.domain.port.service.PriceService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -15,10 +16,10 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 @ExtendWith(MockitoExtension.class)
-public class PriceEndpointTest {
+public class PriceControllerTest {
 
     @InjectMocks
-    private PriceEndpoint priceEndpoint;
+    private PriceController priceController;
 
     @Mock
     private PriceService priceService;
@@ -27,8 +28,8 @@ public class PriceEndpointTest {
 
     @BeforeEach
     public void setup() {
-        mockMvc = MockMvcBuilders.standaloneSetup(priceEndpoint)
-                .setControllerAdvice(new ControllerAdvisor())
+        mockMvc = MockMvcBuilders.standaloneSetup(priceController)
+                .setControllerAdvice(new GlobalExceptionHandler())
                 .build();
     }
 

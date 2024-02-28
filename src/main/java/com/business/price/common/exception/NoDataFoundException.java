@@ -1,4 +1,4 @@
-package com.business.price.application.exception;
+package com.business.price.common.exception;
 
 public class NoDataFoundException extends RuntimeException {
 
