@@ -7,7 +7,167 @@
 	},
 	"item": [
 		{
-			"name": "Get Price",
+			"name": "Test 1: petición a las 10:00 del día 14",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api-business-price/api/v1/brand-id/:brandID/product-id/:productId?applicationDate=2020-06-14 10:00:00",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api-business-price",
+						"api",
+						"v1",
+						"brand-id",
+						":brandID",
+						"product-id",
+						":productId"
+					],
+					"query": [
+						{
+							"key": "applicationDate",
+							"value": "2020-06-14 10:00:00"
+						}
+					],
+					"variable": [
+						{
+							"key": "brandID",
+							"value": "1"
+						},
+						{
+							"key": "productId",
+							"value": "35455"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Test 2: petición a las 16:00 del día 14",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api-business-price/api/v1/brand-id/:brandID/product-id/:productId?applicationDate=2020-06-14 16:00:00",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api-business-price",
+						"api",
+						"v1",
+						"brand-id",
+						":brandID",
+						"product-id",
+						":productId"
+					],
+					"query": [
+						{
+							"key": "applicationDate",
+							"value": "2020-06-14 16:00:00"
+						}
+					],
+					"variable": [
+						{
+							"key": "brandID",
+							"value": "1"
+						},
+						{
+							"key": "productId",
+							"value": "35455"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Test 3: petición a las 21:00 del día 14",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api-business-price/api/v1/brand-id/:brandID/product-id/:productId?applicationDate=2020-06-14 21:00:00",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api-business-price",
+						"api",
+						"v1",
+						"brand-id",
+						":brandID",
+						"product-id",
+						":productId"
+					],
+					"query": [
+						{
+							"key": "applicationDate",
+							"value": "2020-06-14 21:00:00"
+						}
+					],
+					"variable": [
+						{
+							"key": "brandID",
+							"value": "1"
+						},
+						{
+							"key": "productId",
+							"value": "35455"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Test 4: petición a las 10:00 del día 15",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api-business-price/api/v1/brand-id/:brandID/product-id/:productId?applicationDate=2020-06-15 10:00:00",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api-business-price",
+						"api",
+						"v1",
+						"brand-id",
+						":brandID",
+						"product-id",
+						":productId"
+					],
+					"query": [
+						{
+							"key": "applicationDate",
+							"value": "2020-06-15 10:00:00"
+						}
+					],
+					"variable": [
+						{
+							"key": "brandID",
+							"value": "1"
+						},
+						{
+							"key": "productId",
+							"value": "35455"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Test 5: petición a las 21:00 del día 16",
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -36,6 +196,86 @@
 						{
 							"key": "brandID",
 							"value": "1"
+						},
+						{
+							"key": "productId",
+							"value": "35455"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Test 6: No Prices Found",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api-business-price/api/v1/brand-id/:brandID/product-id/:productId?applicationDate=2020-06-16 21:00:00",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api-business-price",
+						"api",
+						"v1",
+						"brand-id",
+						":brandID",
+						"product-id",
+						":productId"
+					],
+					"query": [
+						{
+							"key": "applicationDate",
+							"value": "2020-06-16 21:00:00"
+						}
+					],
+					"variable": [
+						{
+							"key": "brandID",
+							"value": "1"
+						},
+						{
+							"key": "productId",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Test 7: Bad Request",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api-business-price/api/v1/brand-id/:brandID/product-id/:productId?applicationDate=2020-06-15 21:00:00",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api-business-price",
+						"api",
+						"v1",
+						"brand-id",
+						":brandID",
+						"product-id",
+						":productId"
+					],
+					"query": [
+						{
+							"key": "applicationDate",
+							"value": "2020-06-15 21:00:00"
+						}
+					],
+					"variable": [
+						{
+							"key": "brandID",
+							"value": "invalid-value"
 						},
 						{
 							"key": "productId",
