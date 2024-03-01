@@ -4,9 +4,7 @@ import com.business.price.application.dto.PriceDTO;
 import com.business.price.common.exception.DatabaseConnectionException;
 import com.business.price.common.exception.NoDataFoundException;
 import com.business.price.domain.model.Price;
-import com.business.price.domain.port.service.PriceService;
-import com.business.price.domain.service.PriceServiceImpl;
-import org.junit.jupiter.api.BeforeEach;
+import com.business.price.domain.port.repository.PriceRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -20,17 +18,13 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class PriceApplicationServiceTest {
+public class PriceServiceImplTest {
 
     @InjectMocks
-    private PriceApplicationService priceApplicationService;
+    private PriceServiceImpl priceService;
 
     @Mock
-    private PriceService priceService;
-
-    @BeforeEach
-    void setUp() {
-    }
+    private PriceRepository priceRepository;
 
     @Test
     public void testFindPriceFromDateAndProductAndBrand() throws DatabaseConnectionException {
@@ -57,11 +51,11 @@ class PriceApplicationServiceTest {
                 .build();
 
         // Mocking PriceRepository
-        when(priceService.findPriceFromDateAndProductAndBrand(brandId, productId, applicationDate))
+        when(priceRepository.findByProductAndBrandDate(brandId, productId, applicationDate))
                 .thenReturn(Optional.of(price));
 
         // Act
-        PriceDTO result = priceApplicationService.findByProductAndBrandDate(brandId, productId, applicationDate);
+        PriceDTO result = priceService.findPriceFromDateAndProductAndBrand(brandId, productId, applicationDate);
 
         // Assert
         assertNotNull(result);
@@ -75,11 +69,11 @@ class PriceApplicationServiceTest {
         LocalDateTime applicationDate = LocalDateTime.of(2022, 3, 15, 10, 30);
 
         // Mocking PriceRepository to return an empty list
-        when(priceService.findPriceFromDateAndProductAndBrand(brandId, productId, applicationDate))
+        when(priceRepository.findByProductAndBrandDate(brandId, productId, applicationDate))
                 .thenReturn(Optional.empty());
 
         // Act and Assert
         assertThrows(NoDataFoundException.class,
-                () -> priceApplicationService.findByProductAndBrandDate(brandId, productId, applicationDate));
+                () -> priceService.findPriceFromDateAndProductAndBrand(brandId, productId, applicationDate));
     }
 }

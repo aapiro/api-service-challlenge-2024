@@ -1,8 +1,8 @@
 package com.business.price.infraestructure.adapter.controller;
 
 import com.business.price.application.dto.PriceDTO;
-import com.business.price.application.servicio.PriceApplicationService;
 import com.business.price.common.exception.DatabaseConnectionException;
+import com.business.price.domain.port.service.PriceService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -19,7 +19,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class PriceController {
 
-    private final PriceApplicationService priceApplicationService;
+    private final PriceService priceService;
     private static final String DEFAULT_MEDIA_TYPE = MediaType.APPLICATION_JSON_VALUE;
 
     @Operation(summary = "Get price")
@@ -30,6 +30,6 @@ public class PriceController {
                                       @RequestParam("applicationDate")
                                            @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
                                            final LocalDateTime applicationDate) throws DatabaseConnectionException {
-        return ResponseEntity.ok(priceApplicationService.findByProductAndBrandDate(brandId, productId, applicationDate));
+        return ResponseEntity.ok(priceService.findPriceFromDateAndProductAndBrand(brandId, productId, applicationDate));
     }
 }

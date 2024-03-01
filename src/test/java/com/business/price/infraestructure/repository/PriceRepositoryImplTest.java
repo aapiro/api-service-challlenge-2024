@@ -10,8 +10,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.dao.DataAccessException;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -35,15 +33,14 @@ class PriceRepositoryImplTest {
         int productId = 2;
         LocalDateTime applicationDate = LocalDateTime.of(2022, 3, 15, 10, 30);
 
-        List<PriceEntity> priceEntityList = new ArrayList<>();
-        priceEntityList.add(PriceEntity.builder()
+        PriceEntity priceEntity = com.business.price.infraestructure.repository.PriceEntity.builder()
                 .price(100.0)
                 .brandId(brandId)
                 .productId(productId)
                 .startDate(LocalDateTime.of(2022, 3, 15, 10, 30))
                 .endDate(LocalDateTime.of(2022, 3, 15, 10, 30))
                 .priceList(1)
-                .build());
+                .build();
         Price expectedResponse = new Price();
         expectedResponse.setPrice(100.0);
         expectedResponse.setBrandId(brandId);
@@ -53,8 +50,8 @@ class PriceRepositoryImplTest {
         expectedResponse.setPriceList(1);
 
         // Mocking PriceRepository
-        when(sqlPriceRepository.findByProductAndBrandDate(any(),any(), any(), any()))
-                .thenReturn(priceEntityList);
+        when(sqlPriceRepository.findByProductAndBrandDate(any(),any(), any()))
+                .thenReturn(Optional.of(priceEntity));
 
         // Act
         Optional<Price> result = priceRepository.findByProductAndBrandDate(brandId, productId, applicationDate);
@@ -70,8 +67,8 @@ class PriceRepositoryImplTest {
     }
     @Test
     public void testFindByProductAndBrandDate_ValidateException() {
-        given(sqlPriceRepository.findByProductAndBrandDate(any(), any(), any(), any()))
-                .willThrow(new DataAccessException("test") {});
+        given(sqlPriceRepository.findByProductAndBrandDate(any(), any(), any()))
+                .willThrow(new DataAccessException("test exception") {});
 
         assertThrows(DatabaseConnectionException.class, () ->
                 priceRepository.findByProductAndBrandDate(1, 1, LocalDateTime.now()));
